@@ -6,10 +6,11 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/public'));
-io.on('connection', function(socket){
+
+io.on('connection', function(socket) {
 	console.log('User connected via socket.io!');
 
-	socket.on('message', function(message){
+	socket.on('message', function(message) {
 		console.log('message received: ' + message.text);
 
 		message.timestamp = moment().valueOf();
@@ -19,7 +20,8 @@ io.on('connection', function(socket){
 	
 	// timestamp property -javascript timestamp (milliseconds)
 
-	socket.emit('message',{
+	socket.emit('message', {
+		name: 'System',
 		text: 'Welcome to the chat application!',
 		timestamp: moment().valueOf()
 	});
